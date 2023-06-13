@@ -28,8 +28,22 @@ class Carnival
   end
 
   def summary
+    {
+      visitor_count: count_visitors,
+      revenue_earned: carnival_revenue,
+      visitors: visitor_summary,
+      rides: ride_summary
+    }
+  end
+
+  def count_visitors
+    @rides.sum { |ride| ride.total_riders }
+  end
+
+  def summary
     visitor_summary = {}
     total_money_spent = Hash.new(0)
+    ride_summary = {}
 
     @rides.each do |ride|
       ride.rider_log.each do |visitor, ride_count|
@@ -44,13 +58,18 @@ class Carnival
           visitor_summary[visitor][:total_money_spent] = total_money_spent[visitor]
         end
       end
+
+      ride_summary[ride.name] = {
+        riders: ride.rider_log.keys.map(&:name),
+        total_revenue: ride.total_revenue
+      }
     end
 
     {
       visitor_count: visitor_summary.length,
       revenue_earned: carnival_revenue,
-      visitors: visitor_summary
+      visitors: visitor_summary,
+      rides: ride_summary
     }
   end
-
 end
