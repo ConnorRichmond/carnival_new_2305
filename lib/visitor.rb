@@ -21,4 +21,9 @@ class Visitor
     @height >= height_threshold
   end
 
+  def spend_money(amount)
+    #split the spending money from the "$" and reapply after reduction
+    @spending_money = (@spending_money.gsub(/\D/, '').to_i - amount).to_s + '$'
+  end
+
 end
