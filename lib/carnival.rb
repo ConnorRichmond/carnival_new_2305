@@ -27,4 +27,30 @@ class Carnival
     total
   end
 
+  def summary
+    visitor_summary = {}
+    total_money_spent = Hash.new(0)
+
+    @rides.each do |ride|
+      ride.rider_log.each do |visitor, ride_count|
+        total_money_spent[visitor] += ride_count * ride.admission_fee
+        favorite_ride = visitor.preferences.include?(ride.excitement) ? ride.name : nil
+        if visitor_summary[visitor].nil?
+          visitor_summary[visitor] = {
+            favorite_ride: favorite_ride,
+            total_money_spent: total_money_spent[visitor]
+          }
+        else
+          visitor_summary[visitor][:total_money_spent] = total_money_spent[visitor]
+        end
+      end
+    end
+
+    {
+      visitor_count: visitor_summary.length,
+      revenue_earned: carnival_revenue,
+      visitors: visitor_summary
+    }
+  end
+
 end
