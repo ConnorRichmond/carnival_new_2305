@@ -50,7 +50,19 @@ describe Carnival do
     end
   end
 
-
-
+  describe 'summary of the carnival' do
+    it 'returns a summary of the carnival' do
+      expected_summary = {
+        visitor_count: 3,
+        revenue_earned: 8,
+        visitors: {
+          @visitor1 => { favorite_ride: 'Carousel', total_money_spent: 1 },
+          @visitor2 => { favorite_ride: 'Ferris Wheel', total_money_spent: 5 },
+          @visitor3 => { favorite_ride: 'Roller Coaster', total_money_spent: 2 }
+        }
+      }
+      expect(@witchlight.summary).to eq(expected_summary)
+    end
+  end
 
 end
