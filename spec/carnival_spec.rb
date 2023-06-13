@@ -45,8 +45,8 @@ describe Carnival do
   end
 
   describe 'carnival_revenue' do
-    it 'returns carnivals total revenue' do
-      expect(@witchlight.carnival_revenue).to eq((8))
+    it 'returns carnival total revenue' do
+      expect(@witchlight.carnival_revenue).to eq(8)
     end
   end
 
@@ -59,10 +59,16 @@ describe Carnival do
           @visitor1 => { favorite_ride: 'Carousel', total_money_spent: 1 },
           @visitor2 => { favorite_ride: 'Ferris Wheel', total_money_spent: 5 },
           @visitor3 => { favorite_ride: 'Roller Coaster', total_money_spent: 2 }
+        },
+        rides: {
+          'Carousel' => { riders: ['Bruce'], total_revenue: 1 },
+          'Ferris Wheel' => { riders: ['Tucker'], total_revenue: 5 },
+          'Roller Coaster' => { riders: ['Penny'], total_revenue: 2 }
         }
       }
+
       expect(@witchlight.summary).to eq(expected_summary)
     end
   end
-
+  
 end
